@@ -1,0 +1,29 @@
+cmake_minimum_required(VERSION 3.14)
+project(nagato_render CXX C)
+
+set(CMAKE_CXX_STANDARD 17)
+
+# ------------------------------------------------------------------------------
+# nagato lib
+include_directories(src/nagatolib/src)
+add_subdirectory(src/nagatolib)
+
+# ------------------------------------------------------------------------------
+# nagato lib
+include_directories(src/lodepng)
+file(GLOB LODEPNG_HEADER
+        ${CMAKE_SOURCE_DIR}/src/lodepng/lodepng.h)
+file(GLOB LODEPNG_SOURCE
+        ${CMAKE_SOURCE_DIR}/src/lodepng/lodepng.cpp)
+add_library(lodepng ${LODEPNG_HEADER} ${LODEPNG_SOURCE})
+
+# ------------------------------------------------------------------------------
+# compile option
+set(CMAKE_CXX_FLAGS_RELEASE  "${CMAKE_CXX_FLAGS_RELEASE} -O3 -ffast-math -Wall")
+set(CMAKE_CXX_FLAGS_DEBUG   "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g -Wall")
+message(STATUS "CXX release options : ${CMAKE_CXX_FLAGS_RELEASE}")
+message(STATUS "CXX debug options : ${CMAKE_CXX_FLAGS_DEBUG}")
+
+
+add_executable(nagato_render main.cpp)
+target_link_libraries(nagato_render nagato lodepng)

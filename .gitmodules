@@ -1,0 +1,6 @@
+[submodule "src/lodepng"]
+	path = src/lodepng
+	url = https://github.com/lvandeve/lodepng.git
+[submodule "src/nagatolib"]
+	path = src/nagatolib
+	url = https://github.com/nagato0614/nagatolib.git
