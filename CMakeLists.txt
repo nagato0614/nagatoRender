@@ -24,6 +24,34 @@ set(CMAKE_CXX_FLAGS_DEBUG   "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g -Wall")
 message(STATUS "CXX release options : ${CMAKE_CXX_FLAGS_RELEASE}")
 message(STATUS "CXX debug options : ${CMAKE_CXX_FLAGS_DEBUG}")
 
+# ------------------------------------------------------------------------------
+# nagato render
+
+file(GLOB RENDER_HEADERS
+        ${CMAKE_SOURCE_DIR}/src/images/*.hpp
+        ${CMAKE_SOURCE_DIR}/src/core/*.hpp
+        ${CMAKE_SOURCE_DIR}/src/camera/*.hpp
+        ${CMAKE_SOURCE_DIR}/src/light/*.hpp
+        ${CMAKE_SOURCE_DIR}/src/object/*.hpp
+        ${CMAKE_SOURCE_DIR}/src/render/*.hpp
+        ${CMAKE_SOURCE_DIR}/src/color/*.hpp
+        )
+file(GLOB RENDER_SOURCES
+        ${CMAKE_SOURCE_DIR}/src/images/*.cpp
+        ${CMAKE_SOURCE_DIR}/src/core/*.cpp
+        ${CMAKE_SOURCE_DIR}/src/camera/*.cpp
+        ${CMAKE_SOURCE_DIR}/src/light/*.cpp
+        ${CMAKE_SOURCE_DIR}/src/object/*.cpp
+        ${CMAKE_SOURCE_DIR}/src/render/*.cpp
+        ${CMAKE_SOURCE_DIR}/src/color/*.cpp
+        )
+add_library(renderlib
+        ${RENDER_HEADERS}
+        ${RENDER_SOURCES})
+
+# ------------------------------------------------------------------------------
+# nagato render
 
 add_executable(nagato_render main.cpp)
-target_link_libraries(nagato_render nagato lodepng)
+target_link_libraries(nagato_render
+        nagato lodepng renderlib)
