@@ -27,6 +27,7 @@ message(STATUS "CXX debug options : ${CMAKE_CXX_FLAGS_DEBUG}")
 # ------------------------------------------------------------------------------
 # nagato render
 
+include_directories( ${CMAKE_SOURCE_DIR}/src )
 file(GLOB RENDER_HEADERS
         ${CMAKE_SOURCE_DIR}/src/images/*.hpp
         ${CMAKE_SOURCE_DIR}/src/core/*.hpp
