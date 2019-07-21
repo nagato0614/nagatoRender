@@ -13,9 +13,9 @@ namespace nagato {
 template<Size element>
 class ColorBase {
 
-	using __self = ColorBase<element>;
-	using _reference = __self &;
-	using _const_reference = const __self &&;
+	using self = ColorBase<element>;
+	using reference = self &;
+	using const_refernce = const self &&;
 
  public:
 	template<class... Args>
@@ -23,7 +23,7 @@ class ColorBase {
 			: array_(std::forward<decltype(args)>(args)...) {
 	}
 
-	constexpr ColorBase(_const_reference c) noexcept
+	constexpr ColorBase(const_refernce c) noexcept
 			: array_(c.array_) {}
 
 	constexpr Float &operator[](Size index)
@@ -41,46 +41,51 @@ class ColorBase {
 		return array_[index];
 	}
 
-	constexpr ColorBase<element> &operator=(_const_reference v)
+	constexpr ColorBase<element> &operator=(const_refernce v)
 	noexcept {
 		array_ = v.array_;
 		return *this;
 	}
 
-	constexpr __self &operator+=(_const_reference v) noexcept {
+	constexpr self &operator+=(const_refernce v) noexcept {
 		return array_ + v.array_;
 	}
 
 	template<typename T>
-	constexpr __self &operator+=(const T &v) noexcept {
+	constexpr self &operator+=(const T &v) noexcept {
 		return array_ + v;
 	}
 
-	constexpr __self &operator-=(_const_reference v) noexcept {
+	constexpr self &operator-=(const_refernce v) noexcept {
 		return array_ - v.array_;
 	}
 
 	template<typename T>
-	constexpr __self &operator-=(const T &v) noexcept {
+	constexpr self &operator-=(const T &v) noexcept {
 		return array_ - v;
 	}
 
-	constexpr __self &operator*=(_const_reference v) noexcept {
+	constexpr self &operator*=(const_refernce v) noexcept {
 		return array_ * v.array_;
 	}
 
 	template<typename T>
-	constexpr __self &operator*=(const T &v) noexcept {
+	constexpr self &operator*=(const T &v) noexcept {
 		return array_ * v;
 	}
 
-	constexpr __self &operator/=(_const_reference v) noexcept {
+	constexpr self &operator/=(const_refernce v) noexcept {
 		return array_ / v.array_;
 	}
 
 	template<typename T>
-	constexpr __self &operator/=(const T &v) noexcept {
+	constexpr self &operator/=(const T &v) noexcept {
 		return array_ / v;
+	}
+
+	template<typename From, typename To>
+	constexpr void Clamp(From from, To to) noexcept {
+
 	}
 
  protected:
