@@ -6,7 +6,7 @@
 #define NAGATO_RENDER_SRC_COLOR_COLOR_BASE_HPP_
 
 #include <cstdlib>
-#include <core/nagato.hpp>
+#include <nagato.hpp>
 #include <vector.hpp>
 
 namespace nagato {
@@ -18,13 +18,11 @@ class ColorBase {
 	using const_refernce = const self &&;
 
  public:
-	template<class... Args>
-	constexpr explicit ColorBase(Args &&... args) noexcept
-			: array_(std::forward<decltype(args)>(args)...) {
-	}
+	constexpr ColorBase(Float f = 0.0) noexcept
+			: array_(f) {}
 
-	constexpr ColorBase(const_refernce c) noexcept
-			: array_(c.array_) {}
+	constexpr ColorBase(const std::initializer_list<Float> &init) noexcept
+			: array_(init) {}
 
 	constexpr Float &operator[](Size index)
 	& noexcept {
@@ -84,8 +82,8 @@ class ColorBase {
 	}
 
 	template<typename From, typename To>
-	constexpr void Clamp(From from, To to) noexcept {
-
+	constexpr self Clamp(From from, To to) noexcept {
+		return array_.Clamp(from, to);
 	}
 
  protected:
