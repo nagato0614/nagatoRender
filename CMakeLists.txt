@@ -9,7 +9,7 @@ include_directories(src/nagatolib/src)
 add_subdirectory(src/nagatolib)
 
 # ------------------------------------------------------------------------------
-# nagato lib
+# lodepng lib
 include_directories(src/lodepng)
 file(GLOB LODEPNG_HEADER
         ${CMAKE_SOURCE_DIR}/src/lodepng/lodepng.h)
