@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.13.4)
 project(nagato_render CXX C)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -15,7 +15,7 @@ file(GLOB LODEPNG_HEADER
         ${CMAKE_SOURCE_DIR}/src/lodepng/lodepng.h)
 file(GLOB LODEPNG_SOURCE
         ${CMAKE_SOURCE_DIR}/src/lodepng/lodepng.cpp)
-add_library(lodepng ${LODEPNG_HEADER} ${LODEPNG_SOURCE})
+add_library(lodepng ${LODEPNG_HEADER} ${LODEPNG_SOURCE} src/render/render_base.cpp src/render/render_base.hpp)
 
 # ------------------------------------------------------------------------------
 # compile option
