@@ -37,6 +37,7 @@ class Film;
 class Integrator;
 class Intersector;
 class Light;
+class Material;
 }
 
 #endif //NAGATO_RENDER_SRC_CORE_NAGATO_HPP_
