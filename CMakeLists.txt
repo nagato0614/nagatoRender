@@ -25,6 +25,38 @@ message(STATUS "CXX release options : ${CMAKE_CXX_FLAGS_RELEASE}")
 message(STATUS "CXX debug options : ${CMAKE_CXX_FLAGS_DEBUG}")
 
 # ------------------------------------------------------------------------------
+# Qt option
+set(QTDIR $ENV{QTDIR})
+set(CMAKE_PREFIX_PATH ${QTDIR})
+message(STATUS "QTDIR : ${QTDIR}")
+
+find_package(Qt5Widgets REQUIRED)
+find_package(Qt5Core REQUIRED)
+message(STATUS "Qt5Widgets_HEADER : ${Qt5Widgets_HEADER}")
+
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOMOC ON)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+message(STATUS "CMAKE_CURRENT_SOURCE_DIR : ${CMAKE_CURRENT_SOURCE_DIR}")
+message(STATUS "CMAKE_CURRENT_BINARY_DIR : ${CMAKE_CURRENT_BINARY_DIR}")
+file(GLOB UI_SOURCES
+        ${CMAKE_SOURCE_DIR}/ui/*)
+qt5_wrap_ui(UI_HEADERS ${UI_SOURCES})
+
+include_directories(${Qt5Core_INCLUDE_DIRS})
+include_directories(${Qt5Gui_INCLUDE_DIRS})
+include_directories(${Qt5Gui_INCLUDE_DIRS})
+
+message(STATUS "Qt5Core include dirs: ${Qt5Core_INCLUDE_DIRS}")
+message(STATUS "Qt5Core libraries: ${Qt5Core_LIBRARIES}")
+message(STATUS "Qt5Gui include dirs: ${Qt5Gui_INCLUDE_DIRS}")
+message(STATUS "Qt5Gui libraries: ${Qt5Gui_LIBRARIES}")
+message(STATUS "Qt5Widgets include dirs: ${Qt5Gui_INCLUDE_DIRS}")
+message(STATUS "Qt5Widgets libraries: ${Qt5Widgets_LIBRARIES}")
+
+
+# ------------------------------------------------------------------------------
 # nagato render
 
 include_directories( ${CMAKE_SOURCE_DIR}/src/core )
@@ -34,6 +66,7 @@ include_directories( ${CMAKE_SOURCE_DIR}/src/light )
 include_directories( ${CMAKE_SOURCE_DIR}/src/object )
 include_directories( ${CMAKE_SOURCE_DIR}/src/render )
 include_directories( ${CMAKE_SOURCE_DIR}/src/color )
+include_directories( ${CMAKE_SOURCE_DIR}/src/gui )
 file(GLOB RENDER_HEADERS
         ${CMAKE_SOURCE_DIR}/src/images/*.hpp
         ${CMAKE_SOURCE_DIR}/src/core/*.hpp
@@ -43,6 +76,7 @@ file(GLOB RENDER_HEADERS
         ${CMAKE_SOURCE_DIR}/src/render/*.hpp
         ${CMAKE_SOURCE_DIR}/src/color/*.hpp
         ${CMAKE_SOURCE_DIR}/src/images/*.hpp
+        ${CMAKE_SOURCE_DIR}/src/gui/*.hpp
         )
 file(GLOB RENDER_SOURCES
         ${CMAKE_SOURCE_DIR}/src/images/*.cpp
@@ -53,8 +87,10 @@ file(GLOB RENDER_SOURCES
         ${CMAKE_SOURCE_DIR}/src/render/*.cpp
         ${CMAKE_SOURCE_DIR}/src/color/*.cpp
         ${CMAKE_SOURCE_DIR}/src/images/*.cpp
+        ${CMAKE_SOURCE_DIR}/src/gui/*.cpp
         )
 add_library(renderlib
+        ${UI_HEADERS}
         ${RENDER_HEADERS}
         ${RENDER_SOURCES})
 
@@ -63,4 +99,10 @@ add_library(renderlib
 
 add_executable(nagato_render main.cpp)
 target_link_libraries(nagato_render
-        nagato lodepng renderlib)
+        nagato
+        lodepng
+        renderlib
+        Qt5::Widgets
+        Qt5::Core
+        Qt5::Gui
+        )
