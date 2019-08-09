@@ -15,7 +15,7 @@ file(GLOB LODEPNG_HEADER
         ${CMAKE_SOURCE_DIR}/src/lodepng/lodepng.h)
 file(GLOB LODEPNG_SOURCE
         ${CMAKE_SOURCE_DIR}/src/lodepng/lodepng.cpp)
-add_library(lodepng ${LODEPNG_HEADER} ${LODEPNG_SOURCE} src/render/render_base.cpp src/render/render_base.hpp)
+add_library(lodepng ${LODEPNG_HEADER} ${LODEPNG_SOURCE} src/render/render_base.cpp src/render/render_base.hpp src/core/scene.cpp src/core/scene.hpp src/object/object.cpp src/object/object.hpp)
 
 # ------------------------------------------------------------------------------
 # compile option

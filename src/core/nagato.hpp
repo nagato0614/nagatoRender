@@ -31,7 +31,12 @@ using Matrix4f = Matrix<Float, 4, 4>;
 class Ray;
 class HitInfo;
 class Object;
-
+class Camera;
+class Scene;
+class Film;
+class Integrator;
+class Intersector;
+class Light;
 }
 
 #endif //NAGATO_RENDER_SRC_CORE_NAGATO_HPP_
