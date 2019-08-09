@@ -6,6 +6,10 @@
 #define NAGATO_RENDER_SRC_RENDER_RENDER_BASE_HPP_
 
 #include "nagato.hpp"
+#include "camera.hpp"
+#include "scene.hpp"
+#include "integrator.hpp"
+#include "film.hpp"
 
 namespace nagato {
 class RenderBase {

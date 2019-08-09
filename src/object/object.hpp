@@ -5,7 +5,11 @@
 #ifndef NAGATO_RENDER_SRC_OBJECT_OBJECT_HPP_
 #define NAGATO_RENDER_SRC_OBJECT_OBJECT_HPP_
 
+#include <vector>
 #include "nagato.hpp"
+#include "hit_info.hpp"
+#include "material.hpp"
+#include "light.hpp"
 
 namespace nagato {
 class Object {

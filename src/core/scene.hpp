@@ -6,6 +6,11 @@
 #define NAGATO_RENDER_SRC_CORE_SCENE_HPP_
 
 #include "nagato.hpp"
+#include "camera.hpp"
+#include "object.hpp"
+#include "ray.hpp"
+#include "intersector.hpp"
+
 
 namespace nagato {
 class Scene {

@@ -15,7 +15,7 @@ file(GLOB LODEPNG_HEADER
         ${CMAKE_SOURCE_DIR}/src/lodepng/lodepng.h)
 file(GLOB LODEPNG_SOURCE
         ${CMAKE_SOURCE_DIR}/src/lodepng/lodepng.cpp)
-add_library(lodepng ${LODEPNG_HEADER} ${LODEPNG_SOURCE} src/render/render_base.cpp src/render/render_base.hpp src/core/scene.cpp src/core/scene.hpp src/object/object.cpp src/object/object.hpp)
+add_library(lodepng ${LODEPNG_HEADER} ${LODEPNG_SOURCE})
 
 # ------------------------------------------------------------------------------
 # compile option
@@ -62,32 +62,41 @@ message(STATUS "Qt5Widgets libraries: ${Qt5Widgets_LIBRARIES}")
 include_directories( ${CMAKE_SOURCE_DIR}/src/core )
 include_directories( ${CMAKE_SOURCE_DIR}/src/images )
 include_directories( ${CMAKE_SOURCE_DIR}/src/camera )
+include_directories( ${CMAKE_SOURCE_DIR}/src/integrator )
 include_directories( ${CMAKE_SOURCE_DIR}/src/light )
 include_directories( ${CMAKE_SOURCE_DIR}/src/object )
 include_directories( ${CMAKE_SOURCE_DIR}/src/render )
 include_directories( ${CMAKE_SOURCE_DIR}/src/color )
 include_directories( ${CMAKE_SOURCE_DIR}/src/gui )
+include_directories( ${CMAKE_SOURCE_DIR}/src/material )
+include_directories( ${CMAKE_SOURCE_DIR}/src/struct )
 file(GLOB RENDER_HEADERS
         ${CMAKE_SOURCE_DIR}/src/images/*.hpp
         ${CMAKE_SOURCE_DIR}/src/core/*.hpp
         ${CMAKE_SOURCE_DIR}/src/camera/*.hpp
+        ${CMAKE_SOURCE_DIR}/src/integrator/*.hpp
         ${CMAKE_SOURCE_DIR}/src/light/*.hpp
         ${CMAKE_SOURCE_DIR}/src/object/*.hpp
         ${CMAKE_SOURCE_DIR}/src/render/*.hpp
         ${CMAKE_SOURCE_DIR}/src/color/*.hpp
         ${CMAKE_SOURCE_DIR}/src/images/*.hpp
         ${CMAKE_SOURCE_DIR}/src/gui/*.hpp
+        ${CMAKE_SOURCE_DIR}/src/material/*.hpp
+        ${CMAKE_SOURCE_DIR}/src/struct/*.hpp
         )
 file(GLOB RENDER_SOURCES
         ${CMAKE_SOURCE_DIR}/src/images/*.cpp
         ${CMAKE_SOURCE_DIR}/src/core/*.cpp
         ${CMAKE_SOURCE_DIR}/src/camera/*.cpp
+        ${CMAKE_SOURCE_DIR}/src/integrator/*.cpp
         ${CMAKE_SOURCE_DIR}/src/light/*.cpp
         ${CMAKE_SOURCE_DIR}/src/object/*.cpp
         ${CMAKE_SOURCE_DIR}/src/render/*.cpp
         ${CMAKE_SOURCE_DIR}/src/color/*.cpp
         ${CMAKE_SOURCE_DIR}/src/images/*.cpp
         ${CMAKE_SOURCE_DIR}/src/gui/*.cpp
+        ${CMAKE_SOURCE_DIR}/src/material/*.cpp
+        ${CMAKE_SOURCE_DIR}/src/struct/*.cpp
         )
 add_library(renderlib
         ${UI_HEADERS}
