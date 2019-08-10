@@ -27,7 +27,9 @@ using Matrix3f = Matrix<Float, 3, 3>;
 using Matrix4f = Matrix<Float, 4, 4>;
 
 // -----------------------------------------------------------------------------
-// Forward Declaration
+// Functions
+
+std::tuple<Vector3f, Vector3f, Vector3f> OrthonormalBasis(const Vector3f &v);
 
 }
 

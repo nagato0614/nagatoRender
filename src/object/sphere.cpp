@@ -8,7 +8,7 @@
 namespace nagato {
 
 std::optional<HitInfo> Sphere::Intersect(const Ray &ray) {
-    const Float min = std::numeric_limits<Float>::min();
+    const Float min = ray.tmin_;
     const Float max = ray.tmax_;
 
     const auto op = point_ - ray.origin_;
@@ -34,4 +34,8 @@ std::optional<HitInfo> Sphere::Intersect(const Ray &ray) {
     }
     return std::nullopt;
 }
+Sphere::Sphere(const std::shared_ptr<Material> &material,
+               const std::shared_ptr<Light> &light,
+               const Vector3f &point,
+               Float radius) : Object(material, light), point_(point), radius_(radius) {}
 }

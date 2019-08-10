@@ -14,6 +14,10 @@ class HitInfo;
 
 class Sphere : public Object {
  public:
+  Sphere(const std::shared_ptr<Material> &material,
+         const std::shared_ptr<Light> &light,
+         const Vector3f &point,
+         Float radius);
   std::optional<HitInfo> Intersect(const Ray &ray) override;
  private:
   Vector3f point_;

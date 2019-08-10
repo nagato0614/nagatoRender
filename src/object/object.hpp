@@ -18,6 +18,7 @@ namespace nagato {
 class HitInfo;
 class Object {
  public:
+  Object(const std::shared_ptr<Material> &material, const std::shared_ptr<Light> &light);
   virtual std::optional<HitInfo> Intersect(const Ray &ray) = 0;
   const std::shared_ptr<Material> &GetMaterial() const;
   const std::shared_ptr<Light> &GetLight() const;
