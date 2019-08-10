@@ -6,15 +6,19 @@
 #define NAGATO_RENDER_SRC_OBJECT_OBJECT_HPP_
 
 #include <vector>
+#include <optional>
 #include "nagato.hpp"
 #include "hit_info.hpp"
 #include "material.hpp"
 #include "light.hpp"
+#include "ray.hpp"
+#include "hit_info.hpp"
 
 namespace nagato {
+class HitInfo;
 class Object {
  public:
-  virtual HitInfo Intersect() = 0;
+  virtual std::optional<HitInfo> Intersect(const Ray &ray) = 0;
   const std::shared_ptr<Material> &GetMaterial() const;
   const std::shared_ptr<Light> &GetLight() const;
  protected:
