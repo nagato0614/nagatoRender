@@ -12,23 +12,23 @@ namespace nagato {
 class Camera {
  public:
   virtual Ray GeneratePrimaryRay(int x, int y) const = 0;
-  Camera(const Vector3f &eye,
-         const Vector3f &up,
-         const Vector3f &center,
-         Float fov,
-         int width,
-         int height);
+	Camera(const Vector3f &lookfrom,
+				 const Vector3f &up,
+				 const Vector3f &lookat,
+				 Float fov,
+				 int width,
+				 int height);
 
  protected:
   /**
    * カメラ中心座標
    */
-  Vector3f eye_;
+	Vector3f lookfrom_;
 
   /**
    * カメラのセンター位置
    */
-  Vector3f center_;
+	Vector3f lookat_;
 
   /**
    * カメラの上方向

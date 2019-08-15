@@ -6,22 +6,22 @@
 
 namespace nagato {
 
-PinholeCamera::PinholeCamera(const Vector3f &eye,
-                             const Vector3f &up,
-                             const Vector3f &center,
-                             Float fov,
-                             int width,
-                             int height)
-    : Camera(eye, up, center, fov, width, height),
-      wE_(Normalize(eye_ - center_)),
-      uE_(Normalize(Cross(up_, wE_))),
-      vE_(Cross(wE_, uE_)) {}
+PinholeCamera::PinholeCamera(const Vector3f &lookfrom,
+														 const Vector3f &up,
+														 const Vector3f &lookat,
+														 Float fov,
+														 int width,
+														 int height)
+		: Camera(lookfrom, up, lookat, fov, width, height),
+			wE_(Normalize(lookat - lookfrom)),
+			uE_(Normalize(Cross(wE_, up))),
+			vE_(Normalize(Cross(wE_, uE_))) {}
 
 Ray PinholeCamera::GeneratePrimaryRay(int x, int y) const {
-    const auto u = 2.f * static_cast<Float>(x) / width_ - 1.0f;
-    const auto v = 2.f * static_cast<Float>(y) / height_ - 1.0f;
-    const auto tf = std::tan(fov_ * 0.5f);
-    const auto ww = Normalize(Vector3f{aspect_ * tf * u, tf * v, -1.0f});
-    return Ray{eye_, uE_ * ww[0] + vE_ * ww[1] * wE_ * ww[2]};
+	const double tf = std::tan(fov_ * .5);
+	const double rpx = 2. * (x + 0.5) / width_ - 1;
+	const double rpy = 2. * (y + 0.5) / height_ - 1;
+	const auto w = Normalize(Vector3f(aspect_ * tf * rpx, tf * rpy, -1));
+	return Ray(lookfrom_, uE_ * w[0] + vE_ * w[1] + wE_ * w[2]);
 }
 }

@@ -13,9 +13,9 @@ class Ray {
 
   Ray() = default;
   Ray(const Vector3f &origin,
-      const Vector3f &direction,
-      Float tmin = std::numeric_limits<Float>::min(),
-      Float tmax_ = std::numeric_limits<Float>::max());
+			const Vector3f &direction,
+			Float tmin = std::numeric_limits<Float>::lowest(),
+			Float tmax_ = std::numeric_limits<Float>::max());
   Vector3f origin_;
   Vector3f direction_;
   Float tmin_;

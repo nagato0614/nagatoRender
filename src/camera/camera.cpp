@@ -3,20 +3,21 @@
 //
 
 #include "camera.hpp"
+#include "math.hpp"
 
 namespace nagato {
 
-Camera::Camera(const Vector3f &eye,
-               const Vector3f &up,
-               const Vector3f &center,
-               Float fov,
-               int width,
-               int height)
-    : eye_(eye),
-      center_(center),
-      up_(up),
-      fov_(fov),
-      aspect_(static_cast<Float>(width) / height),
-      width_(width),
-      height_(height) {}
+Camera::Camera(const Vector3f &lookfrom,
+							 const Vector3f &up,
+							 const Vector3f &lookat,
+							 Float fov,
+							 int width,
+							 int height)
+		: lookfrom_(lookfrom),
+			lookat_(lookat),
+			up_(up),
+			fov_(fov / 180. * Pi<Float>),
+			aspect_(static_cast<Float>(width) / static_cast<Float>(height)),
+			width_(width),
+			height_(height) {}
 }

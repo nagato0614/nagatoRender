@@ -15,12 +15,12 @@ class PinholeCamera : public Camera {
   Ray GeneratePrimaryRay(int x, int y) const override;
  private:
  public:
-  PinholeCamera(const Vector3f &eye,
-                const Vector3f &up,
-                const Vector3f &center,
-                Float fov,
-                int width,
-                int height);
+	PinholeCamera(const Vector3f &lookfrom,
+								const Vector3f &up,
+								const Vector3f &lookat,
+								Float fov,
+								int width,
+								int height);
 
  private:
   Vector3f wE_;

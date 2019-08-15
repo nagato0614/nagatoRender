@@ -29,7 +29,6 @@ using Matrix4f = Matrix<Float, 4, 4>;
 // -----------------------------------------------------------------------------
 // Functions
 
-std::tuple<Vector3f, Vector3f, Vector3f> OrthonormalBasis(const Vector3f &v);
 
 }
 
