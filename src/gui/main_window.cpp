@@ -9,6 +9,8 @@
 #include "pinhole_camera.hpp"
 #include "sphere.hpp"
 #include "hit_info.hpp"
+#include "scene.hpp"
+#include "linear_intersector.hpp"
 
 namespace nagato {
 MainWindow::MainWindow(QWidget *parent) :
@@ -23,12 +25,19 @@ MainWindow::~MainWindow() {
 }
 void MainWindow::Render() {
 	//画像サイズを設定
-	int width = ui_->imageViewer->width() - 1;
-	int height = ui_->imageViewer->height() - 1;
+	int width = ui_->imageViewer->width() - 5;
+	int height = ui_->imageViewer->height() - 5;
 	//QImageクラスで画像を生成。フォーマットを32ビット画像にする。
 	QImage image(width, height, QImage::Format_RGB32);
-	Sphere sphere(nullptr, nullptr, {0, 0, 0}, 1);
-	PinholeCamera camera({5, 5, 5},
+	Sphere sphere1(nullptr, nullptr, {0, -0.7, 0}, 1);
+	Sphere sphere2(nullptr, nullptr, {0, 0.7, 0}, 1);
+
+	Scene scene(std::make_unique<LinearIntersector>());
+	scene.AddObject(new Sphere(nullptr, nullptr, {-0.7, 0, 0}, 1));
+	scene.AddObject(new Sphere(nullptr, nullptr, {0.7, 0, 0}, 1));
+	scene.Build();
+
+	PinholeCamera camera({0, 0, 5},
 											 {0, 1, 0},
 											 {0, 0, 0},
 											 30,
@@ -37,7 +46,7 @@ void MainWindow::Render() {
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {
 			Ray ray = camera.GeneratePrimaryRay(i, j);
-			auto hit_info = sphere.Intersect(ray);
+			auto hit_info = scene.Intersect(ray);
 			QColor q_color;
 			auto tonemap = [](Float v) -> int {
 				return std::min(
@@ -52,7 +61,7 @@ void MainWindow::Render() {
 						normal[2] * 255,
 						255);
 			} else {
-				q_color.setRgb(0, 0, 0, 255);
+				q_color.setRgb(151, 199, 199, 255);
 			}
 			image.setPixelColor(i, j, q_color);
 		}

@@ -15,10 +15,12 @@
 namespace nagato {
 class Scene {
  public:
-  void AddObject(Object *object);
+	Scene(std::unique_ptr<Intersector> &&intersector);
+	void AddObject(Object *object);
   void AddLight(Light *light);
-  HitInfo Intersect(Ray ray);
+	std::optional<HitInfo> Intersect(const Ray &ray);
   void LoadObjectFile(const std::string &filename);
+	void Build();
 
  private:
   std::vector<std::shared_ptr<Light>> lights_;
