@@ -11,7 +11,6 @@
 #include "hit_info.hpp"
 #include "scene.hpp"
 #include "linear_intersector.hpp"
-#include "vdb.hpp"
 
 namespace nagato {
 MainWindow::MainWindow(QWidget *parent) :
@@ -61,7 +60,7 @@ void MainWindow::Render() {
     // Camera parameters
     const Vector3f eye(50, 52, 295.6);
     const Vector3f center = eye + Vector3f(0, -0.042612, -1);
-	const Vector3f up(0, 1, 0);
+    const Vector3f up(0, 1, 0);
 
 //    const Vector3f eye(0, 1, 5);
 //    const Vector3f up(0, 1, 0);
@@ -73,8 +72,8 @@ void MainWindow::Render() {
                          30,
                          width,
                          height);
-    vdb_frame();
-    vdb_begin();
+
+#pragma omp parallel for schedule(dynamic, 1)
     for (int i = 0; i < width * height; i++) {
         const int x = i % width;
         const int y = height - 1 - i / width;
@@ -93,15 +92,11 @@ void MainWindow::Render() {
                 normal[1] * 255.0,
                 normal[2] * 255.0,
                 255);
-            vdb_color(normal[0], normal[1], normal[2]);
-            vdb_point(hit_info->GetPoint()[0], hit_info->GetPoint()[1],
-                      hit_info->GetPoint()[2]);
         } else {
             q_color.setRgb(151, 199, 199, 255);
         }
         image.setPixelColor(x, height - 1 - y, q_color);
     }
-    vdb_end();
     image.save("test.png");
     QGraphicsPixmapItem *image_item
         = new QGraphicsPixmapItem(QPixmap::fromImage(image));

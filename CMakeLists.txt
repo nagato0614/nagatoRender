@@ -4,6 +4,14 @@ project(nagato_render CXX C)
 set(CMAKE_CXX_STANDARD 17)
 
 # ------------------------------------------------------------------------------
+# Open MP
+find_package(OpenMP REQUIRED)
+if (OpenMP_FOUND)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+endif ()
+
+# ------------------------------------------------------------------------------
 # nagato lib
 include_directories(src/nagatolib/src)
 add_subdirectory(src/nagatolib)
