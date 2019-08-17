@@ -11,27 +11,27 @@ std::optional<HitInfo> Sphere::Intersect(const Ray &ray) {
     const Float min = ray.tmin_;
     const Float max = ray.tmax_;
 
-    const auto op = point_ - ray.origin_;
-    const Float b = Dot(op, ray.direction_);
-    const Float det = b * b - Dot(op, op) + radius_ * radius_;
+    const auto oc = ray.origin_ - point_;
+    const Float b = 2.f * Dot(oc, ray.direction_);
+    const Float c = Dot(oc, oc) - radius_ * radius_;
+    const Float D = b * b - 4 * c;
+    if (D <= 0)
+        return std::nullopt;
 
-	if (det < 0.0) {
-        return  std::nullopt;
-    }
-
-	const Float t1 = b - std::sqrt(det);
+    const Float t1 = (-b - std::sqrt(D)) / 2.f;
     if (min < t1 && t1 < max) {
-        Vector3f point = ray.origin_ + ray.direction_ * t1;
-				Vector3f normal = Normalize((point - point_) / radius_);
-        return std::make_optional<HitInfo>(this, t1, point, normal);
+        const auto hit_point = ray.origin_ + ray.direction_ * t1;
+        const auto normal = Normalize(hit_point - point_) / radius_;
+        return HitInfo(this, t1, hit_point, normal);
     }
 
-	const Float t2 = b + std::sqrt(det);
+    const Float t2 = (-b + std::sqrt(D)) / 2.f;
     if (min < t2 && t2 < max) {
-        Vector3f point = ray.origin_ + ray.direction_ * t2;
-			Vector3f normal = Normalize((point - point_) / radius_);
-        return std::make_optional<HitInfo>(this, t2, point, normal);
+        const auto hit_point = ray.origin_ + ray.direction_ * t2;
+        const auto normal = Normalize(hit_point - point_) / radius_;
+        return HitInfo(this, t2, hit_point, normal);
     }
+
     return std::nullopt;
 }
 Sphere::Sphere(const std::shared_ptr<Material> &material,

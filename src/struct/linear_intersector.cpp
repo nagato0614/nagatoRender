@@ -16,7 +16,7 @@ std::optional<HitInfo> LinearIntersector::Intersect(const Ray &ray) {
 
 		if (info->GetDistance() < max) {
 			hitinfo = info;
-			max = hitinfo->GetDistance();
+            max = info->GetDistance();
 		}
 	}
 	return hitinfo;
