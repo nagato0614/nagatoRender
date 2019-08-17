@@ -35,4 +35,11 @@ void Scene::LoadObjectFile(const std::string &filename) {
 void Scene::Build() {
 	intersector_->Build(objects_);
 }
+
+void Scene::AddObject(std::shared_ptr<Object> &&object) {
+	objects_.emplace_back(std::move(object));
+}
+const std::vector<std::shared_ptr<Object>> &Scene::GetObjects() const {
+	return objects_;
+}
 }

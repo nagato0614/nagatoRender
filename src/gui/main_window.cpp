@@ -29,17 +29,46 @@ void MainWindow::Render() {
 	int height = ui_->imageViewer->height() - 5;
 	//QImageクラスで画像を生成。フォーマットを32ビット画像にする。
 	QImage image(width, height, QImage::Format_RGB32);
-	Sphere sphere1(nullptr, nullptr, {0, -0.7, 0}, 1);
-	Sphere sphere2(nullptr, nullptr, {0, 0.7, 0}, 1);
 
 	Scene scene(std::make_unique<LinearIntersector>());
-	scene.AddObject(new Sphere(nullptr, nullptr, {-0.7, 0, 0}, 1));
-	scene.AddObject(new Sphere(nullptr, nullptr, {0.7, 0, 0}, 1));
-	scene.Build();
+	scene.AddObject(
+			std::make_shared<Sphere>(nullptr, nullptr, Vector3f(-0.5, 1, 0), 1));
+	scene.AddObject(
+			std::make_shared<Sphere>(nullptr, nullptr, Vector3f(0.5, 1, 0), 1));
+	scene.AddObject(
+			std::make_shared<Sphere>(nullptr, nullptr, Vector3f(0, -900, 0), 900));
 
-	PinholeCamera camera({0, 0, 5},
-											 {0, 1, 0},
-											 {0, 0, 0},
+//	scene.AddObject(
+//			std::make_shared<Sphere>(nullptr, nullptr,Vector3f(1e5+1,40.8,81.6)  , 1e5 ));
+//	scene.AddObject(
+//			std::make_shared<Sphere>(nullptr, nullptr,Vector3f(-1e5+99,40.8,81.6), 1e5 ));
+//	scene.AddObject(
+//			std::make_shared<Sphere>(nullptr, nullptr,Vector3f(50,40.8,1e5)      , 1e5 ));
+//	scene.AddObject(
+//			std::make_shared<Sphere>(nullptr, nullptr,Vector3f(50,1e5,81.6)      , 1e5 ));
+//	scene.AddObject(
+//			std::make_shared<Sphere>(nullptr, nullptr,Vector3f(50,-1e5+81.6,81.6), 1e5 ));
+//	scene.AddObject(
+//			std::make_shared<Sphere>(nullptr, nullptr,Vector3f(27,16.5,47)       , 16.5));
+//	scene.AddObject(
+//			std::make_shared<Sphere>(nullptr, nullptr,Vector3f(73,16.5,78)       , 16.5));
+//	scene.AddObject(
+//			std::make_shared<Sphere>(nullptr, nullptr,Vector3f(50,681.6-.27,81.6), 600 ));
+	scene.Build();
+	std::cout << "objects : " << scene.GetObjects().size() << std::endl;
+
+//	// Camera parameters
+//	const Vector3f eye(50, 52, 295.6);
+//	const Vector3f center = eye + Vector3f(0, -0.042612, -1);
+//	const Vector3f up(0, 1, 0);
+
+	const Vector3f eye(0, 1, 5);
+	const Vector3f up(0, 1, 0);
+	const Vector3f center(0, 0 ,0);
+
+	PinholeCamera camera(eye,
+											 up,
+											 center,
 											 30,
 											 width,
 											 height);
@@ -56,14 +85,14 @@ void MainWindow::Render() {
 				Vector3f normal = Normalize(hit_info->GetNormal());
 				normal = (normal + 1.0) * 0.5;
 				q_color.setRgb(
-						normal[0] * 255,
-						normal[1] * 255,
-						normal[2] * 255,
+						normal[0] * 255.0,
+						normal[1] * 255.0,
+						normal[2] * 255.0,
 						255);
 			} else {
 				q_color.setRgb(151, 199, 199, 255);
 			}
-			image.setPixelColor(i, j, q_color);
+			image.setPixelColor(i, (height - 1) - j, q_color);
 		}
 	}
 	image.save("test.png");

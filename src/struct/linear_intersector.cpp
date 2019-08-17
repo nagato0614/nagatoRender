@@ -8,16 +8,16 @@ namespace nagato {
 
 std::optional<HitInfo> LinearIntersector::Intersect(const Ray &ray) {
 	std::optional<HitInfo> hitinfo = std::nullopt;
+	Float max = std::numeric_limits<Float>::max();
 	for (auto &object : objects_) {
 		auto info = object->Intersect(ray);
 		if (!info)
 			continue;
 
-		if (!hitinfo)
+		if (info->GetDistance() < max) {
 			hitinfo = info;
-
-		if (info->GetDistance() < hitinfo->GetDistance())
-			hitinfo = info;
+			max = hitinfo->GetDistance();
+		}
 	}
 	return hitinfo;
 }

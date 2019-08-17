@@ -17,10 +17,12 @@ class Scene {
  public:
 	Scene(std::unique_ptr<Intersector> &&intersector);
 	void AddObject(Object *object);
+	void AddObject(std::shared_ptr<Object> &&object);
   void AddLight(Light *light);
 	std::optional<HitInfo> Intersect(const Ray &ray);
   void LoadObjectFile(const std::string &filename);
 	void Build();
+	const std::vector<std::shared_ptr<Object>> &GetObjects() const;
 
  private:
   std::vector<std::shared_ptr<Light>> lights_;

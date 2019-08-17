@@ -16,8 +16,8 @@ Camera::Camera(const Vector3f &lookfrom,
 		: lookfrom_(lookfrom),
 			lookat_(lookat),
 			up_(up),
-			fov_(fov / 180. * Pi<Float>),
-			aspect_(static_cast<Float>(width) / static_cast<Float>(height)),
+			fov_(fov * M_PI / 180),
+			aspect_((Float) width / height),
 			width_(width),
 			height_(height) {}
 }
