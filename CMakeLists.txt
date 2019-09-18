@@ -78,6 +78,7 @@ include_directories( ${CMAKE_SOURCE_DIR}/src/color )
 include_directories( ${CMAKE_SOURCE_DIR}/src/gui )
 include_directories( ${CMAKE_SOURCE_DIR}/src/material )
 include_directories( ${CMAKE_SOURCE_DIR}/src/struct )
+include_directories( ${CMAKE_SOURCE_DIR}/src/bxdf )
 file(GLOB RENDER_HEADERS
         ${CMAKE_SOURCE_DIR}/src/images/*.hpp
         ${CMAKE_SOURCE_DIR}/src/core/*.hpp
@@ -91,6 +92,7 @@ file(GLOB RENDER_HEADERS
         ${CMAKE_SOURCE_DIR}/src/gui/*.hpp
         ${CMAKE_SOURCE_DIR}/src/material/*.hpp
         ${CMAKE_SOURCE_DIR}/src/struct/*.hpp
+        ${CMAKE_SOURCE_DIR}/src/bxdf/*.hpp
         )
 file(GLOB RENDER_SOURCES
         ${CMAKE_SOURCE_DIR}/src/images/*.cpp
@@ -105,6 +107,7 @@ file(GLOB RENDER_SOURCES
         ${CMAKE_SOURCE_DIR}/src/gui/*.cpp
         ${CMAKE_SOURCE_DIR}/src/material/*.cpp
         ${CMAKE_SOURCE_DIR}/src/struct/*.cpp
+        ${CMAKE_SOURCE_DIR}/src/bxdf/*.cpp
         )
 add_library(renderlib
         ${UI_HEADERS}
@@ -119,6 +122,26 @@ target_link_libraries(nagato_render
         nagato
         lodepng
         renderlib
+        Qt5::Widgets
+        Qt5::Core
+        Qt5::Gui
+        )
+
+# ------------------------------------------------------------------------------
+# nagato render test
+
+file(GLOB RENDER_TEST_SOURCES
+        ${CMAKE_SOURCE_DIR}/src/test/*.cpp)
+add_executable(
+        nagato_render_test
+        src/test/test.cpp
+        ${RENDER_TEST_SOURCES}
+)
+target_link_libraries(nagato_render_test
+        nagato
+        lodepng
+        renderlib
+        gtest
         Qt5::Widgets
         Qt5::Core
         Qt5::Gui
