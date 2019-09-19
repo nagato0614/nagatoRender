@@ -11,11 +11,11 @@ constexpr int TEST_CASE = 10000;
 TEST(BXDF, WORLD_TO_LOCAL) {
     using namespace nagato;
 
-    Lambert lambert(Vector3f(1, 1, 1), RGB(0));
+	Lambert lambert(Normalize(MakeRandomVector()), RGB(0));
 
     for (int i = 0; i < TEST_CASE; i++) {
-        auto world_vector = MakeRandomVector();
-        auto local_vector = lambert.WorldToLoacl(world_vector);
+			auto world_vector = Normalize(MakeRandomVector());
+			auto local_vector = lambert.WorldToLocal(world_vector);
         auto converted_vector = lambert.LoacalToWorld(local_vector);
         AssertFloatEQVector3f(world_vector, converted_vector);
     }

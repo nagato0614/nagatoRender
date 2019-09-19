@@ -73,7 +73,6 @@ void MainWindow::Render() {
                          width,
                          height);
 
-#pragma omp parallel for schedule(dynamic, 1)
     for (int i = 0; i < width * height; i++) {
         const int x = i % width;
         const int y = height - 1 - i / width;
