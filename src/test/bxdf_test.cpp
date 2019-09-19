@@ -16,7 +16,7 @@ TEST(BXDF, WORLD_TO_LOCAL) {
     for (int i = 0; i < TEST_CASE; i++) {
 			auto world_vector = Normalize(MakeRandomVector());
 			auto local_vector = lambert.WorldToLocal(world_vector);
-        auto converted_vector = lambert.LoacalToWorld(local_vector);
+			auto converted_vector = lambert.LocalToWorld(local_vector);
         AssertFloatEQVector3f(world_vector, converted_vector);
     }
 }

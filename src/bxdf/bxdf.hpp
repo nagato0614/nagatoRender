@@ -53,7 +53,7 @@ class Bxdf {
       return Vector3f(Dot(vector, u_), Dot(vector, normal_), Dot(vector, v_));
   }
 
-  Vector3f LoacalToWorld(const Vector3f &vector) const {
+	Vector3f LocalToWorld(const Vector3f &vector) const {
       Vector3f a(u_[0], normal_[0], v_[0]);
       Vector3f b(u_[1], normal_[1], v_[1]);
       Vector3f c(u_[2], normal_[2], v_[2]);
