@@ -12,6 +12,10 @@ if (OpenMP_FOUND)
 endif ()
 
 # ------------------------------------------------------------------------------
+# open GL
+find_package(OpenGL)
+
+# ------------------------------------------------------------------------------
 # nagato lib
 include_directories(src/nagatolib/src)
 add_subdirectory(src/nagatolib)
@@ -40,6 +44,7 @@ message(STATUS "QTDIR : ${QTDIR}")
 
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Core REQUIRED)
+find_package(Qt5OpenGL REQUIRED)
 message(STATUS "Qt5Widgets_HEADER : ${Qt5Widgets_HEADER}")
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -54,14 +59,18 @@ qt5_wrap_ui(UI_HEADERS ${UI_SOURCES})
 
 include_directories(${Qt5Core_INCLUDE_DIRS})
 include_directories(${Qt5Gui_INCLUDE_DIRS})
-include_directories(${Qt5Gui_INCLUDE_DIRS})
+include_directories(${Qt5Widgets_INCLUDE_DIRS})
+include_directories(${Qt5OpenGL_INCLUDE_DIRS})
 
 message(STATUS "Qt5Core include dirs: ${Qt5Core_INCLUDE_DIRS}")
 message(STATUS "Qt5Core libraries: ${Qt5Core_LIBRARIES}")
 message(STATUS "Qt5Gui include dirs: ${Qt5Gui_INCLUDE_DIRS}")
 message(STATUS "Qt5Gui libraries: ${Qt5Gui_LIBRARIES}")
-message(STATUS "Qt5Widgets include dirs: ${Qt5Gui_INCLUDE_DIRS}")
+message(STATUS "Qt5Widgets include dirs: ${Qt5Widgets_INCLUDE_DIRS}")
 message(STATUS "Qt5Widgets libraries: ${Qt5Widgets_LIBRARIES}")
+message(STATUS "Qt5Widgets include dirs: ${Qt5OpenGL_INCLUDE_DIRS}")
+message(STATUS "Qt5openGL include dirs: ${Qt5OpenGL_LIBRARIES}")
+
 
 
 # ------------------------------------------------------------------------------
@@ -122,6 +131,8 @@ target_link_libraries(nagato_render
         nagato
         lodepng
         renderlib
+        ${OPENGL_LIBRARY}
+        Qt5::OpenGL
         Qt5::Widgets
         Qt5::Core
         Qt5::Gui
@@ -142,6 +153,8 @@ target_link_libraries(nagato_render_test
         lodepng
         renderlib
         gtest
+        ${OPENGL_LIBRARY}
+        Qt5::OpenGL
         Qt5::Widgets
         Qt5::Core
         Qt5::Gui

@@ -14,16 +14,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QGraphicsView" name="imageViewer">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>661</width>
-      <height>421</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="renderButton">
     <property name="geometry">
      <rect>
@@ -50,6 +40,16 @@
      <string>Stop</string>
     </property>
    </widget>
+   <widget class="nagato::GLWidget" name="openGLWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>661</width>
+      <height>421</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
@@ -69,6 +69,13 @@
    <addaction name="menuNagato_Render"/>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>nagato::GLWidget</class>
+   <extends>QOpenGLWidget</extends>
+   <header>gl_widget.hpp</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

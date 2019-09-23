@@ -8,6 +8,8 @@
 #include <QtWidgets/QMainWindow>
 #include <ui_mainwindow.h>
 
+#include "gl_widget.hpp"
+
 namespace nagato {
 class MainWindow : public QMainWindow {
  Q_OBJECT
@@ -26,7 +28,7 @@ class MainWindow : public QMainWindow {
  private:
 
 	Ui::MainWindow *ui_;
-	QGraphicsScene graphics_scene_;
+	bool isEnd;
 };
 }
 #endif //NAGATO_RENDER_SRC_GUI_MAIN_WINDOW_HPP_
