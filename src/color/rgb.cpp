@@ -33,4 +33,9 @@ Float &RGB::B() & noexcept {
 uint RGB::B255() const noexcept {
 	return static_cast<uint>(clamp(B(), 0, 1.0) * 255);
 }
+void RGB::SetRGB(Float r, Float g, Float b) noexcept {
+	array_[0] = r;
+	array_[1] = g;
+	array_[2] = b;
+}
 }

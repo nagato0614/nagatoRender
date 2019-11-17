@@ -18,11 +18,17 @@ class ColorBase {
 	using const_refernce = const self &&;
 
  public:
-	constexpr ColorBase(Float f = 0.0) noexcept
+	constexpr explicit ColorBase(Float f = 0.0) noexcept
 			: array_(f) {}
 
 	constexpr ColorBase(const std::initializer_list<Float> &init) noexcept
 			: array_(init) {}
+
+	constexpr ColorBase(const ColorBase &color_base)
+			: array_(color_base.array_) {}
+
+	constexpr ColorBase(ColorBase &&color_base) noexcept
+			: array_(std::move(color_base.array_)) {}
 
 	constexpr Float &operator[](Size index)
 	& noexcept {

@@ -50,13 +50,13 @@ class Bxdf {
   }
 
 	Vector3f WorldToLocal(const Vector3f &vector) const {
-		return Vector3f(Dot(vector, u_), Dot(vector, w_), Dot(vector, v_));
+		return Vector3f(Dot(vector, u_), Dot(vector, v_), Dot(vector, w_));
   }
 
 	Vector3f LocalToWorld(const Vector3f &vector) const {
-		Vector3f a(u_[0], w_[0], v_[0]);
-		Vector3f b(u_[1], w_[1], v_[1]);
-		Vector3f c(u_[2], w_[2], v_[2]);
+		Vector3f a(u_[0], v_[0], w_[0]);
+		Vector3f b(u_[1], v_[1], w_[1]);
+		Vector3f c(u_[2], v_[2], w_[2]);
       return Vector3f(Dot(vector, a), Dot(vector, b), Dot(vector, c));
   }
  private:

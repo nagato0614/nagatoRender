@@ -10,8 +10,12 @@
 namespace nagato {
 class RGB : public ColorBase<3> {
  public:
-	RGB(Float f) : ColorBase(f) {}
+	RGB(Float f = 0.0) : ColorBase(f) {}
 	RGB(const std::initializer_list<Float> f) : ColorBase(f) {}
+
+	RGB(const ColorBase &color_base) : ColorBase(color_base) {}
+
+	RGB(ColorBase &&color_base) : ColorBase(std::move(color_base)) {}
 
 	const Float &R() const & noexcept;
 
@@ -30,6 +34,8 @@ class RGB : public ColorBase<3> {
 	Float &B() & noexcept;
 
 	uint B255() const noexcept;
+
+	void SetRGB(Float r, Float g, Float b) noexcept;
 
 
  private:

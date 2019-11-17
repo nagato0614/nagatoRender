@@ -3,13 +3,13 @@
 //
 
 #include "lambert.hpp"
+#include "math.hpp"
 
 namespace nagato {
 Lambert::Lambert(const Vector3f &normal, const RGB &rho) : Bxdf(normal), rho_(rho) {}
 
-
 RGB Lambert::Fr(const Vector3f &wo, const Vector3f &wi) const {
-    return RGB(0);
+    return 0;
 }
 Float Lambert::Pdf(const Vector3f &wo, const Vector3f &wi) const {
     return 0;
